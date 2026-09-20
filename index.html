@@ -12,7 +12,7 @@
 </script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Nicolas Mabeya — Data &amp; AI Enthusiast</title>
+<title>Nicolas Mabeya - Data &amp; AI Enthusiast</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
@@ -88,6 +88,7 @@
   .menu-toggle{ display:none; font-family:var(--mono); font-size:12px; background:none; border:1px solid var(--line-strong); padding:6px 10px; cursor:pointer; }
 
   section{ padding:88px var(--edge); border-bottom:1px solid var(--line); }
+  section:last-of-type{ border-bottom:none; padding-bottom:120px; }
   .section-head{ display:flex; align-items:baseline; gap:14px; margin-bottom:44px; }
   .section-num{ font-family:var(--mono); font-size:13px; color:var(--blue); letter-spacing:0.04em; }
   .section-title{ font-family:var(--display); font-size:clamp(22px,3vw,30px); font-weight:600; letter-spacing:-0.01em; }
@@ -142,7 +143,7 @@
   .log-entry .org{ font-size:14px; color:var(--ink-soft); margin-bottom:10px; }
   .log-entry ul{ list-style:none; display:flex; flex-direction:column; gap:6px; max-width:64ch; }
   .log-entry li{ font-size:14.5px; color:var(--ink-soft); padding-left:16px; position:relative; }
-  .log-entry li::before{ content:'—'; position:absolute; left:0; color:var(--line-strong); }
+  .log-entry li::before{ content:'•'; position:absolute; left:0; color:var(--line-strong); }
 
   .project-grid{ display:grid; grid-template-columns:repeat(auto-fit, minmax(250px, 1fr)); gap:var(--grid-gap); }
   .project-card{ background:var(--paper-raised); border:1px solid var(--line); padding:26px; display:flex; flex-direction:column; gap:12px;
@@ -165,14 +166,12 @@
   .edu-note{ margin-top:10px; font-size:13.5px; color:var(--ink-soft); }
 
   .pin-table{ border-top:1px solid var(--line-strong); }
-  .pin-row{ display:grid; grid-template-columns:50px 140px 1fr; align-items:center; padding:18px 0; border-bottom:1px solid var(--line-strong); }
+  .pin-row{ display:grid; grid-template-columns:50px 32px 1fr; align-items:center; padding:18px 0; border-bottom:1px solid var(--line-strong); gap:10px; }
   .pin-row .pin-num{ font-family:var(--mono); font-size:12px; color:var(--amber); }
-  .pin-row .pin-label{ font-family:var(--mono); font-size:12px; text-transform:uppercase; letter-spacing:0.05em; color:var(--ink-soft); }
+  .pin-icon{ display:flex; align-items:center; color:var(--ink-soft); }
   .pin-row a, .pin-row span.val{ font-family:var(--display); font-size:18px; font-weight:500; text-decoration:none; }
   .pin-row a:hover{ color:var(--blue); }
-
-  footer{ padding:32px var(--edge); display:flex; justify-content:space-between; font-family:var(--mono); font-size:11px;
-    color:var(--ink-soft); letter-spacing:0.03em; flex-wrap:wrap; gap:10px; }
+  .pin-row a:hover .pin-icon{ color:var(--blue); }
 
   @media (max-width:860px){
     .topbar nav{ display:none; }
@@ -190,7 +189,7 @@
 <body>
 
 <header class="topbar">
-  <div class="logo">NICOLAS MABEYA // v2026.08</div>
+  <div class="logo">NICOLAS MABEYA</div>
   <nav>
     <a href="#overview"><span class="en">Overview</span><span class="fr">Aperçu</span></a>
     <a href="#specs"><span class="en">Specs</span><span class="fr">Compétences</span></a>
@@ -221,12 +220,12 @@
   </div>
   <h1>Nicolas Mabeya</h1>
   <div class="role">
-    <span class="en">Data &amp; AI Enthusiast — Analytics, Machine Learning &amp; Full-Stack Development</span>
-    <span class="fr">Passionné Data &amp; IA — Analytics, Machine Learning &amp; Développement Full-Stack</span>
+    <span class="en">Data &amp; AI Enthusiast · Analytics, Machine Learning &amp; Full-Stack Development</span>
+    <span class="fr">Passionné Data &amp; IA · Analytics, Machine Learning &amp; Développement Full-Stack</span>
   </div>
   <p class="lede">
-    <span class="en">I turn data into decisions — churn models, ETL pipelines, and BI systems that have saved 40+ hours a month — complemented by Lumen, a full-stack AI coding assistant I designed and built.</span>
-    <span class="fr">Je transforme la donnée en décisions — modèles de churn, pipelines ETL et systèmes BI ayant permis d'économiser plus de 40 heures par mois — complétés par Lumen, un assistant de codage IA full-stack que j'ai conçu et développé.</span>
+    <span class="en">I turn data into decisions. I've built churn models, ETL pipelines, and BI systems that save 40+ hours a month, and more recently designed and built Lumen, a full-stack AI coding assistant.</span>
+    <span class="fr">Je transforme la donnée en décisions. J'ai conçu des modèles de churn, des pipelines ETL et des systèmes BI qui font gagner plus de 40 heures par mois, et plus récemment j'ai conçu et développé Lumen, un assistant de codage IA full-stack.</span>
   </p>
   <div class="hero-actions">
     <a class="btn btn-primary" href="mailto:nickmabeya5@gmail.com">
@@ -253,17 +252,16 @@
   <div class="overview-grid reveal">
     <div>
       <p>
-        <span class="en">I'm a data professional turned versatile AI practitioner based in Lyon, France, currently completing a Master's in Computer Science (AI &amp; Data Science) at CESI École d'Ingénieurs. Over the past two years I've built ML models, automated ETL pipelines, and led BI dashboard development for insurance and analytics teams — complemented by designing and building Lumen, a full-stack AI coding assistant.</span>
-        <span class="fr">Je suis un professionnel de la donnée devenu praticien IA polyvalent, basé à Lyon, en cours de Master en Informatique (IA &amp; Data Science) à CESI École d'Ingénieurs. Ces deux dernières années, j'ai conçu des modèles de ML, automatisé des pipelines ETL et piloté le développement de tableaux de bord BI pour des équipes assurance et analytics — complétés par la conception et le développement de Lumen, un assistant de codage IA full-stack.</span>
+        <span class="en">I'm a data professional turned versatile AI practitioner, based in Lyon, France, and currently completing a Master's in Computer Science (AI &amp; Data Science) at CESI École d'Ingénieurs. Over the past two years I've built ML models, automated ETL pipelines, and led BI dashboard development for insurance and analytics teams. More recently, I designed and built Lumen, a full-stack AI coding assistant.</span>
+        <span class="fr">Je suis un professionnel de la donnée devenu praticien IA polyvalent, basé à Lyon, en France, et je termine actuellement un Master en Informatique (IA &amp; Data Science) à CESI École d'Ingénieurs. Ces deux dernières années, j'ai conçu des modèles de ML, automatisé des pipelines ETL et piloté le développement de tableaux de bord BI pour des équipes assurance et analytics. Plus récemment, j'ai conçu et développé Lumen, un assistant de codage IA full-stack.</span>
       </p>
       <p>
-        <span class="en">I sit at the intersection of analytics, machine learning, and AI application development, and I'm looking for data science, machine learning, or applied AI engineering roles — internships or full-time — ideally in Europe or remote.</span>
-        <span class="fr">Je me situe à l'intersection de l'analytics, du machine learning et du développement d'applications IA, et je recherche un poste en data science, machine learning ou ingénierie IA appliquée — stage ou temps plein — idéalement en Europe ou en remote.</span>
+        <span class="en">I sit at the intersection of analytics, machine learning, and AI application development, and I'm looking for my next role in data science, machine learning, or applied AI engineering.</span>
+        <span class="fr">Je me situe à l'intersection de l'analytics, du machine learning et du développement d'applications IA, et je recherche mon prochain poste en data science, machine learning ou ingénierie IA appliquée.</span>
       </p>
     </div>
     <div class="stat-list">
       <div class="stat"><span class="num">2+</span><span class="label"><span class="en">Years of experience</span><span class="fr">Années d'expérience</span></span></div>
-      <div class="stat"><span class="num">0.96</span><span class="label"><span class="en">Churn model ROC-AUC</span><span class="fr">ROC-AUC du modèle de churn</span></span></div>
       <div class="stat"><span class="num">40+</span><span class="label"><span class="en">Hours saved / month</span><span class="fr">Heures économisées / mois</span></span></div>
     </div>
   </div>
@@ -307,8 +305,8 @@
   </div>
   <div class="log reveal">
     <div class="log-entry">
-      <div class="tag-row"><span class="ver-badge">v4.0.0</span><span class="date"><span class="en">Sept 2025 — Present</span><span class="fr">Sept 2025 — Présent</span></span></div>
-      <h3><span class="en">Started Master's in Computer Science — AI &amp; Data Science</span><span class="fr">Début du Master en Informatique — IA &amp; Data Science</span></h3>
+      <div class="tag-row"><span class="ver-badge">v4.0.0</span><span class="date"><span class="en">Sept 2025 - Present</span><span class="fr">Sept 2025 - Présent</span></span></div>
+      <h3><span class="en">Started Master's in Computer Science (AI &amp; Data Science)</span><span class="fr">Début du Master en Informatique (IA &amp; Data Science)</span></h3>
       <div class="org">CESI École d'Ingénieurs, Lyon, France</div>
       <ul>
         <li><span class="en">Deepening expertise in machine learning, AI systems, and full-stack engineering; building Lumen, a production-grade AI coding assistant, alongside coursework</span>
@@ -316,9 +314,9 @@
       </ul>
     </div>
     <div class="log-entry">
-      <div class="tag-row"><span class="ver-badge">v3.0.0</span><span class="date">Nov 2024 — Sept 2025</span></div>
+      <div class="tag-row"><span class="ver-badge">v3.0.0</span><span class="date">Nov 2024 - Sept 2025</span></div>
       <h3>Data Analyst</h3>
-      <div class="org">Sanlam Allianz Kenya — Innovation &amp; Growth</div>
+      <div class="org">Sanlam Allianz Kenya, Innovation &amp; Growth</div>
       <ul>
         <li><span class="en">Designed and automated Python data pipelines ingesting multi-source feeds, saving 40+ hours of manual processing per month</span>
         <span class="fr">Conception et automatisation de pipelines de données Python ingérant des flux multi-sources, économisant plus de 40 heures de traitement manuel par mois</span></li>
@@ -331,7 +329,7 @@
       </ul>
     </div>
     <div class="log-entry">
-      <div class="tag-row"><span class="ver-badge">v2.0.0</span><span class="date">Jan 2023 — Aug 2024</span></div>
+      <div class="tag-row"><span class="ver-badge">v2.0.0</span><span class="date">Jan 2023 - Aug 2024</span></div>
       <h3><span class="en">Junior Data Scientist</span><span class="fr">Junior Data Scientist</span></h3>
       <div class="org">GW Dynamics</div>
       <ul>
@@ -342,7 +340,7 @@
       </ul>
     </div>
     <div class="log-entry">
-      <div class="tag-row"><span class="ver-badge">v1.0.0</span><span class="date">Apr 2020 — Dec 2023</span></div>
+      <div class="tag-row"><span class="ver-badge">v1.0.0</span><span class="date">Apr 2020 - Dec 2023</span></div>
       <h3><span class="en">Bachelor of Business and Information Technology</span><span class="fr">Licence en Business &amp; Informatique</span></h3>
       <div class="org">Strathmore University, Nairobi, Kenya</div>
       <ul>
@@ -362,7 +360,7 @@
   <div class="project-grid reveal">
     <div class="project-card">
       <div class="idx">PRJ / 01</div>
-      <h3>Lumen — AI Coding Assistant</h3>
+      <h3>Lumen - AI Coding Assistant</h3>
       <p><span class="en">A full-stack AI coding assistant with real-time streaming, RAG-powered codebase awareness, and semantic vector search. Ships with production-grade auth, token limiting, and a code review system.</span>
       <span class="fr">Un assistant de codage IA full-stack avec streaming en temps réel, connaissance du code via RAG et recherche vectorielle sémantique. Livré avec authentification de niveau production, limitation de tokens et système de revue de code.</span></p>
       <div class="pill-row"><span class="pill">Next.js 16</span><span class="pill">TypeScript</span><span class="pill">RAG</span><span class="pill">Supabase</span></div>
@@ -387,10 +385,9 @@
     <div class="project-card">
       <div class="idx">PRJ / 04</div>
       <h3><span class="en">GA4 &amp; GTM Marketing Analytics</span><span class="fr">Analytics Marketing GA4 &amp; GTM</span></h3>
-      <p><span class="en">Instrumented 25+ custom events across GA4 and Google Tag Manager, with automated exports to BigQuery — improving attribution and contributing to an 18% increase in recovered marketing leads.</span>
-      <span class="fr">Mise en place de plus de 25 événements personnalisés sur GA4 et Google Tag Manager, avec exports automatisés vers BigQuery — améliorant l'attribution et contribuant à une hausse de 18 % des leads marketing récupérés.</span></p>
+      <p><span class="en">Instrumented 25+ custom events across GA4 and Google Tag Manager, with automated exports to BigQuery, improving attribution and contributing to an 18% increase in recovered marketing leads.</span>
+      <span class="fr">Mise en place de plus de 25 événements personnalisés sur GA4 et Google Tag Manager, avec exports automatisés vers BigQuery, améliorant l'attribution et contribuant à une hausse de 18 % des leads marketing récupérés.</span></p>
       <div class="pill-row"><span class="pill">GA4</span><span class="pill">Google Tag Manager</span><span class="pill">BigQuery</span></div>
-      <div class="project-links"><a href="https://github.com/nickmabz" target="_blank"><span class="en">View on GitHub →</span><span class="fr">Voir sur GitHub →</span></a></div>
     </div>
   </div>
 </section>
@@ -404,17 +401,17 @@
   <div class="reveal">
     <div class="edu-row">
       <div>
-        <h3><span class="en">Master's in Computer Science — AI &amp; Data Science</span><span class="fr">Master en Informatique — IA &amp; Data Science</span></h3>
+        <h3><span class="en">Master's in Computer Science (AI &amp; Data Science)</span><span class="fr">Master en Informatique (IA &amp; Data Science)</span></h3>
         <div class="school">CESI École d'Ingénieurs, Lyon, France</div>
       </div>
-      <div class="date"><span class="en">Sept 2025 — Present</span><span class="fr">Sept 2025 — Présent</span></div>
+      <div class="date"><span class="en">Sept 2025 - Present</span><span class="fr">Sept 2025 - Présent</span></div>
     </div>
     <div class="edu-row">
       <div>
         <h3><span class="en">Bachelor of Business and Information Technology</span><span class="fr">Licence en Business &amp; Informatique</span></h3>
         <div class="school">Strathmore University, Nairobi, Kenya</div>
       </div>
-      <div class="date">Apr 2020 — Dec 2023</div>
+      <div class="date">Apr 2020 - Dec 2023</div>
     </div>
     <div class="edu-note">
       <span class="en">Major in Networking · Thesis: Parking Space Prediction Using Machine Learning</span>
@@ -432,36 +429,39 @@
   <div class="pin-table reveal">
     <div class="pin-row">
       <span class="pin-num">01</span>
-      <span class="pin-label">Email</span>
-      <a href="mailto:nickmabeya5@gmail.com">nickmabeya5@gmail.com</a>
+      <a href="mailto:nickmabeya5@gmail.com" style="display:contents;">
+        <span class="pin-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" width="18" height="18"><rect x="3" y="5" width="18" height="14" rx="2"></rect><polyline points="3 7 12 13 21 7"></polyline></svg></span>
+        <span>nickmabeya5@gmail.com</span>
+      </a>
     </div>
     <div class="pin-row">
       <span class="pin-num">02</span>
-      <span class="pin-label">GitHub</span>
-      <a href="https://github.com/nickmabz" target="_blank">github.com/nickmabz</a>
+      <a href="https://github.com/nickmabz" target="_blank" style="display:contents;">
+        <span class="pin-icon"><svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18"><path d="M12 .5C5.65.5.5 5.65.5 12c0 5.09 3.29 9.4 7.86 10.93.57.1.78-.25.78-.55 0-.27-.01-1.16-.02-2.11-3.2.7-3.88-1.36-3.88-1.36-.52-1.34-1.28-1.7-1.28-1.7-1.04-.72.08-.7.08-.7 1.16.08 1.77 1.19 1.77 1.19 1.03 1.77 2.7 1.26 3.36.96.1-.75.4-1.26.73-1.55-2.56-.29-5.26-1.28-5.26-5.7 0-1.26.45-2.29 1.19-3.1-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.18 1.18a11.06 11.06 0 0 1 5.79 0c2.2-1.49 3.17-1.18 3.17-1.18.64 1.59.24 2.76.12 3.05.74.81 1.19 1.84 1.19 3.1 0 4.43-2.7 5.4-5.28 5.69.42.36.78 1.08.78 2.18 0 1.57-.01 2.84-.01 3.23 0 .3.2.66.79.55A10.98 10.98 0 0 0 23.5 12c0-6.35-5.15-11.5-11.5-11.5z"/></svg></span>
+        <span>github.com/nickmabz</span>
+      </a>
     </div>
     <div class="pin-row">
       <span class="pin-num">03</span>
-      <span class="pin-label">LinkedIn</span>
-      <a href="https://linkedin.com/in/nicolas-mabeya" target="_blank">linkedin.com/in/nicolas-mabeya</a>
+      <a href="https://linkedin.com/in/nicolas-mabeya" target="_blank" style="display:contents;">
+        <span class="pin-icon"><svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18"><path d="M20.45 20.45h-3.55v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.36V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.38-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12zM7.12 20.45H3.56V9h3.56v11.45z"/></svg></span>
+        <span>linkedin.com/in/nicolas-mabeya</span>
+      </a>
     </div>
     <div class="pin-row">
       <span class="pin-num">04</span>
-      <span class="pin-label"><span class="en">Location</span><span class="fr">Localisation</span></span>
+      <span class="pin-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" width="18" height="18"><path d="M21 10c0 6-9 12-9 12s-9-6-9-12a9 9 0 1 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg></span>
       <span class="val">Lyon, France</span>
     </div>
     <div class="pin-row">
       <span class="pin-num">05</span>
-      <span class="pin-label"><span class="en">Languages</span><span class="fr">Langues</span></span>
+      <span class="pin-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" width="18" height="18"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg></span>
       <span class="val"><span class="en">English · French · Japanese</span><span class="fr">Anglais · Français · Japonais</span></span>
     </div>
   </div>
 </section>
 
-<footer>
-  <span>© 2026 Nicolas Mabeya — <span class="en">Compiled 2026.08.06</span><span class="fr">Généré le 06.08.2026</span></span>
-  <span><span class="en">Data &amp; AI Enthusiast</span><span class="fr">Passionné Data &amp; IA</span> · Lyon, France</span>
-</footer>
+
 
 <script>
   function toggleTheme(){
