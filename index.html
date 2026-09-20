@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="en" data-lang="en">
+<head>
+<script>
+  (function(){
+    try {
+      var stored = localStorage.getItem('theme');
+      var theme = stored || (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+      document.documentElement.setAttribute('data-theme', theme);
+    } catch(e) { document.documentElement.setAttribute('data-theme', 'light'); }
+  })();
+</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nicolas Mabeya — Data &amp; AI Enthusiast</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper: #F5F6F2;
+    --paper-raised: #FFFFFF;
+    --ink: #16181A;
+    --ink-soft: #52585D;
+    --line: #D9DBD3;
+    --line-strong: #B8BCB2;
+    --blue: #2954E5;
+    --blue-dim: #E7ECFC;
+    --amber: #E8A33D;
+    --mono: 'IBM Plex Mono', monospace;
+    --display: 'Space Grotesk', sans-serif;
+    --body: 'Inter', sans-serif;
+    --grid-gap: clamp(16px, 3vw, 32px);
+    --edge: clamp(20px, 6vw, 72px);
+    --grid-line: rgba(0,0,0,0.025);
+  }
+
+  [data-theme="dark"]{
+    --paper: #101215;
+    --paper-raised: #1B1E23;
+    --ink: #F0F1ED;
+    --ink-soft: #9BA1A6;
+    --line: #2A2D31;
+    --line-strong: #3A3E44;
+    --blue: #6C8CFF;
+    --blue-dim: #1E2740;
+    --amber: #F0B25A;
+    --grid-line: rgba(255,255,255,0.035);
+  }
+
+  *{ box-sizing:border-box; margin:0; padding:0; }
+  html{ scroll-behavior:smooth; }
+  body{
+    background:
+      repeating-linear-gradient(0deg, transparent, transparent 39px, var(--grid-line) 40px),
+      repeating-linear-gradient(90deg, transparent, transparent 39px, var(--grid-line) 40px),
+      var(--paper);
+    color:var(--ink); font-family:var(--body); line-height:1.5; -webkit-font-smoothing:antialiased;
+    transition: background-color 0.2s ease, color 0.2s ease;
+  }
+  a{ color:inherit; }
+  ::selection{ background:var(--blue); color:white; }
+
+  [data-lang="en"] .fr{ display:none; }
+  [data-lang="fr"] .en{ display:none; }
+
+  /* ---------- Top bar ---------- */
+  .topbar{ position:sticky; top:0; z-index:50; display:flex; align-items:center; justify-content:space-between;
+    padding:16px var(--edge); background:color-mix(in srgb, var(--paper) 88%, transparent); backdrop-filter:blur(8px); border-bottom:1px solid var(--line); gap:16px; }
+  .topbar .logo{ font-family:var(--mono); font-size:13px; font-weight:500; letter-spacing:0.02em; white-space:nowrap; }
+  .topbar nav{ display:flex; gap:26px; align-items:center; flex-wrap:wrap; }
+  .topbar nav a{ font-family:var(--mono); font-size:12px; text-decoration:none; color:var(--ink-soft);
+    letter-spacing:0.06em; text-transform:uppercase; transition:color 0.15s ease; }
+  .topbar nav a:hover{ color:var(--blue); }
+  .topbar-right{ display:flex; align-items:center; gap:12px; }
+  .status-pill{ display:flex; align-items:center; gap:7px; font-family:var(--mono); font-size:11px; letter-spacing:0.05em;
+    color:var(--ink-soft); text-transform:uppercase; border:1px solid var(--line-strong); padding:5px 10px; white-space:nowrap; }
+  .status-dot{ width:7px; height:7px; border-radius:50%; background:#3EAA5C; animation:pulse 2s infinite; }
+  @keyframes pulse{ 0%{box-shadow:0 0 0 0 rgba(62,170,92,0.45);} 70%{box-shadow:0 0 0 6px rgba(62,170,92,0);} 100%{box-shadow:0 0 0 0 rgba(62,170,92,0);} }
+  .lang-toggle{ display:flex; border:1px solid var(--line-strong); font-family:var(--mono); font-size:11px; letter-spacing:0.05em; }
+  .lang-btn{ background:none; border:none; padding:6px 10px; cursor:pointer; color:var(--ink-soft); font-family:var(--mono); font-size:11px; }
+  .lang-btn.active{ background:var(--ink); color:var(--paper); }
+  .theme-toggle{ display:flex; align-items:center; justify-content:center; border:1px solid var(--line-strong);
+    background:none; cursor:pointer; font-size:14px; line-height:1; color:var(--ink-soft); padding:7px 11px; }
+  .theme-toggle:hover{ color:var(--blue); border-color:var(--blue); }
+  [data-theme="light"] .theme-icon-light{ display:none; }
+  [data-theme="dark"] .theme-icon-dark{ display:none; }
+  .menu-toggle{ display:none; font-family:var(--mono); font-size:12px; background:none; border:1px solid var(--line-strong); padding:6px 10px; cursor:pointer; }
+
+  section{ padding:88px var(--edge); border-bottom:1px solid var(--line); }
+  .section-head{ display:flex; align-items:baseline; gap:14px; margin-bottom:44px; }
+  .section-num{ font-family:var(--mono); font-size:13px; color:var(--blue); letter-spacing:0.04em; }
+  .section-title{ font-family:var(--display); font-size:clamp(22px,3vw,30px); font-weight:600; letter-spacing:-0.01em; }
+  .section-rule{ flex:1; height:1px; background:var(--line); }
+
+  .reveal{ opacity:0; transform:translateY(14px); transition:opacity 0.6s ease, transform 0.6s ease; }
+  .reveal.is-visible{ opacity:1; transform:none; }
+  @media (prefers-reduced-motion: reduce){ .reveal{opacity:1; transform:none; transition:none;} .status-dot{animation:none;} }
+
+  .hero{ padding:64px var(--edge) 56px; border-bottom:1px solid var(--line); }
+  .eyebrow{ font-family:var(--mono); font-size:12px; letter-spacing:0.12em; color:var(--ink-soft); text-transform:uppercase; margin-bottom:18px; }
+  .hero h1{ font-family:var(--display); font-weight:700; font-size:clamp(40px,8vw,84px); line-height:0.98; letter-spacing:-0.02em; max-width:16ch; }
+  .hero .role{ font-family:var(--body); font-weight:500; font-size:clamp(16px,2vw,20px); color:var(--ink-soft); margin-top:18px; max-width:50ch; }
+  .hero .lede{ margin-top:14px; max-width:60ch; color:var(--ink-soft); font-size:15px; }
+  .hero-actions{ display:flex; gap:12px; margin-top:32px; flex-wrap:wrap; }
+  .btn{ font-family:var(--mono); font-size:12px; letter-spacing:0.04em; text-transform:uppercase; padding:12px 20px;
+    text-decoration:none; display:inline-block; border:1px solid var(--ink); transition:background 0.15s ease, color 0.15s ease; cursor:pointer; }
+  .btn-primary{ background:var(--ink); color:var(--paper); }
+  .btn-primary:hover{ background:var(--blue); border-color:var(--blue); }
+  .btn-ghost{ background:transparent; color:var(--ink); }
+  .btn-ghost:hover{ background:var(--ink); color:var(--paper); }
+
+  .spec-strip{ margin-top:48px; display:grid; grid-template-columns:repeat(4,1fr); border:1px solid var(--line-strong); }
+  .spec-strip div{ padding:14px 18px; border-right:1px solid var(--line-strong); }
+  .spec-strip div:last-child{ border-right:none; }
+  .spec-strip .k{ font-family:var(--mono); font-size:10px; letter-spacing:0.08em; color:var(--ink-soft); text-transform:uppercase; margin-bottom:6px; }
+  .spec-strip .v{ font-family:var(--mono); font-size:13px; font-weight:500; }
+
+  .overview-grid{ display:grid; grid-template-columns:1.4fr 1fr; gap:var(--grid-gap); }
+  .overview-grid p{ font-size:16px; color:var(--ink-soft); max-width:62ch; }
+  .overview-grid p + p{ margin-top:14px; }
+  .stat-list{ display:flex; flex-direction:column; border-top:1px solid var(--line); }
+  .stat-list .stat{ display:flex; justify-content:space-between; align-items:baseline; padding:16px 0; border-bottom:1px solid var(--line); }
+  .stat .num{ font-family:var(--display); font-size:30px; font-weight:600; color:var(--blue); }
+  .stat .label{ font-family:var(--mono); font-size:11px; text-transform:uppercase; letter-spacing:0.05em; color:var(--ink-soft); text-align:right; max-width:16ch; }
+
+  .spec-table{ border-top:1px solid var(--line); }
+  .spec-row{ display:grid; grid-template-columns:220px 1fr; border-bottom:1px solid var(--line); padding:20px 0; }
+  .spec-row .cat{ font-family:var(--mono); font-size:12px; letter-spacing:0.06em; text-transform:uppercase; color:var(--blue); padding-top:4px; }
+  .pill-row{ display:flex; flex-wrap:wrap; gap:8px; }
+  .pill{ font-family:var(--mono); font-size:12.5px; padding:6px 12px; background:var(--paper-raised); border:1px solid var(--line-strong); }
+
+  .log{ position:relative; padding-left:26px; }
+  .log::before{ content:''; position:absolute; left:5px; top:6px; bottom:6px; width:1px; background:var(--line-strong); }
+  .log-entry{ position:relative; padding-bottom:44px; }
+  .log-entry:last-child{ padding-bottom:0; }
+  .log-entry::before{ content:''; position:absolute; left:-26px; top:4px; width:11px; height:11px; background:var(--paper); border:2px solid var(--blue); border-radius:50%; }
+  .log-entry .tag-row{ display:flex; align-items:center; gap:12px; flex-wrap:wrap; margin-bottom:6px; }
+  .ver-badge{ font-family:var(--mono); font-size:11px; font-weight:600; letter-spacing:0.03em; background:var(--ink); color:var(--paper); padding:3px 9px; }
+  .log-entry .date{ font-family:var(--mono); font-size:11.5px; color:var(--ink-soft); }
+  .log-entry h3{ font-family:var(--display); font-size:19px; font-weight:600; margin-bottom:3px; }
+  .log-entry .org{ font-size:14px; color:var(--ink-soft); margin-bottom:10px; }
+  .log-entry ul{ list-style:none; display:flex; flex-direction:column; gap:6px; max-width:64ch; }
+  .log-entry li{ font-size:14.5px; color:var(--ink-soft); padding-left:16px; position:relative; }
+  .log-entry li::before{ content:'—'; position:absolute; left:0; color:var(--line-strong); }
+
+  .project-grid{ display:grid; grid-template-columns:repeat(auto-fit, minmax(250px, 1fr)); gap:var(--grid-gap); }
+  .project-card{ background:var(--paper-raised); border:1px solid var(--line); padding:26px; display:flex; flex-direction:column; gap:12px;
+    transition:border-color 0.15s ease, transform 0.15s ease; }
+  .project-card:hover{ border-color:var(--blue); transform:translateY(-2px); }
+  .project-card .idx{ font-family:var(--mono); font-size:11px; color:var(--amber); letter-spacing:0.05em; }
+  .project-card h3{ font-family:var(--display); font-size:18px; font-weight:600; }
+  .project-card p{ font-size:14px; color:var(--ink-soft); flex:1; }
+  .project-card .pill-row{ margin-top:4px; }
+  .project-card .pill{ font-size:11px; padding:4px 9px; }
+  .project-links{ display:flex; gap:16px; margin-top:6px; }
+  .project-links a{ font-family:var(--mono); font-size:12px; text-decoration:none; color:var(--blue); border-bottom:1px solid transparent; }
+  .project-links a:hover{ border-color:var(--blue); }
+
+  .edu-row{ display:grid; grid-template-columns:1fr auto; gap:12px; padding:22px 0; border-bottom:1px solid var(--line); align-items:baseline; }
+  .edu-row:first-of-type{ border-top:1px solid var(--line); }
+  .edu-row h3{ font-family:var(--display); font-size:18px; font-weight:600; }
+  .edu-row .school{ color:var(--ink-soft); font-size:14px; margin-top:3px; }
+  .edu-row .date{ font-family:var(--mono); font-size:12px; color:var(--ink-soft); white-space:nowrap; }
+  .edu-note{ margin-top:10px; font-size:13.5px; color:var(--ink-soft); }
+
+  .pin-table{ border-top:1px solid var(--line-strong); }
+  .pin-row{ display:grid; grid-template-columns:50px 140px 1fr; align-items:center; padding:18px 0; border-bottom:1px solid var(--line-strong); }
+  .pin-row .pin-num{ font-family:var(--mono); font-size:12px; color:var(--amber); }
+  .pin-row .pin-label{ font-family:var(--mono); font-size:12px; text-transform:uppercase; letter-spacing:0.05em; color:var(--ink-soft); }
+  .pin-row a, .pin-row span.val{ font-family:var(--display); font-size:18px; font-weight:500; text-decoration:none; }
+  .pin-row a:hover{ color:var(--blue); }
+
+  footer{ padding:32px var(--edge); display:flex; justify-content:space-between; font-family:var(--mono); font-size:11px;
+    color:var(--ink-soft); letter-spacing:0.03em; flex-wrap:wrap; gap:10px; }
+
+  @media (max-width:860px){
+    .topbar nav{ display:none; }
+    .menu-toggle{ display:inline-block; }
+    .overview-grid{ grid-template-columns:1fr; }
+    .spec-strip{ grid-template-columns:repeat(2,1fr); }
+    .spec-strip div:nth-child(2){ border-right:none; }
+    .spec-row{ grid-template-columns:1fr; gap:10px; }
+    .project-grid{ grid-template-columns:1fr; }
+    .edu-row{ grid-template-columns:1fr; }
+    section{ padding:64px var(--edge); }
+  }
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <div class="logo">NICOLAS MABEYA // v2026.08</div>
+  <nav>
+    <a href="#overview"><span class="en">Overview</span><span class="fr">Aperçu</span></a>
+    <a href="#specs"><span class="en">Specs</span><span class="fr">Compétences</span></a>
+    <a href="#log"><span class="en">Log</span><span class="fr">Parcours</span></a>
+    <a href="#projects"><span class="en">Projects</span><span class="fr">Projets</span></a>
+    <a href="#education"><span class="en">Education</span><span class="fr">Formation</span></a>
+    <a href="#contact"><span class="en">Contact</span><span class="fr">Contact</span></a>
+  </nav>
+  <div class="topbar-right">
+    <div class="status-pill"><span class="status-dot"></span>
+      <span class="en">Open to work</span><span class="fr">Ouvert aux opportunités</span>
+    </div>
+    <div class="lang-toggle">
+      <button class="lang-btn active" data-lang-btn="en" onclick="setLang('en')">EN</button>
+      <button class="lang-btn" data-lang-btn="fr" onclick="setLang('fr')">FR</button>
+    </div>
+    <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle light or dark theme">
+      <span class="theme-icon-light">☀</span><span class="theme-icon-dark">☾</span>
+    </button>
+    <button class="menu-toggle" onclick="const n=document.querySelector('nav'); n.style.display = n.style.display === 'flex' ? 'none' : 'flex'; n.style.flexDirection='column'; n.style.position='absolute'; n.style.top='60px'; n.style.right='20px'; n.style.background='var(--paper)'; n.style.border='1px solid var(--line-strong)'; n.style.padding='16px';">MENU</button>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="eyebrow">
+    <span class="en">Personnel Datasheet · Rev. 2026.08.06</span>
+    <span class="fr">Fiche Technique Personnelle · Rév. 2026.08.06</span>
+  </div>
+  <h1>Nicolas Mabeya</h1>
+  <div class="role">
+    <span class="en">Data &amp; AI Enthusiast — Analytics, Machine Learning &amp; Full-Stack Development</span>
+    <span class="fr">Passionné Data &amp; IA — Analytics, Machine Learning &amp; Développement Full-Stack</span>
+  </div>
+  <p class="lede">
+    <span class="en">I turn data into decisions — churn models, ETL pipelines, and BI systems that have saved 40+ hours a month — complemented by Lumen, a full-stack AI coding assistant I designed and built.</span>
+    <span class="fr">Je transforme la donnée en décisions — modèles de churn, pipelines ETL et systèmes BI ayant permis d'économiser plus de 40 heures par mois — complétés par Lumen, un assistant de codage IA full-stack que j'ai conçu et développé.</span>
+  </p>
+  <div class="hero-actions">
+    <a class="btn btn-primary" href="mailto:nickmabeya5@gmail.com">
+      <span class="en">Get in touch</span><span class="fr">Me contacter</span>
+    </a>
+    <a class="btn btn-ghost" id="resume-btn" href="resume_en.pdf" target="_blank">
+      <span class="en">Download résumé</span><span class="fr">Télécharger le CV</span>
+    </a>
+  </div>
+  <div class="spec-strip">
+    <div><div class="k"><span class="en">Location</span><span class="fr">Localisation</span></div><div class="v">Lyon, France</div></div>
+    <div><div class="k"><span class="en">Status</span><span class="fr">Statut</span></div><div class="v"><span class="en">Open to work</span><span class="fr">Ouvert aux opportunités</span></div></div>
+    <div><div class="k"><span class="en">Focus</span><span class="fr">Spécialité</span></div><div class="v">Data, ML &amp; AI</div></div>
+    <div><div class="k">Stack</div><div class="v">Python · XGBoost · Power BI</div></div>
+  </div>
+</section>
+
+<section id="overview">
+  <div class="section-head">
+    <span class="section-num">01</span>
+    <span class="section-title"><span class="en">Overview</span><span class="fr">Aperçu</span></span>
+    <span class="section-rule"></span>
+  </div>
+  <div class="overview-grid reveal">
+    <div>
+      <p>
+        <span class="en">I'm a data professional turned versatile AI practitioner based in Lyon, France, currently completing a Master's in Computer Science (AI &amp; Data Science) at CESI École d'Ingénieurs. Over the past two years I've built ML models, automated ETL pipelines, and led BI dashboard development for insurance and analytics teams — complemented by designing and building Lumen, a full-stack AI coding assistant.</span>
+        <span class="fr">Je suis un professionnel de la donnée devenu praticien IA polyvalent, basé à Lyon, en cours de Master en Informatique (IA &amp; Data Science) à CESI École d'Ingénieurs. Ces deux dernières années, j'ai conçu des modèles de ML, automatisé des pipelines ETL et piloté le développement de tableaux de bord BI pour des équipes assurance et analytics — complétés par la conception et le développement de Lumen, un assistant de codage IA full-stack.</span>
+      </p>
+      <p>
+        <span class="en">I sit at the intersection of analytics, machine learning, and AI application development, and I'm looking for data science, machine learning, or applied AI engineering roles — internships or full-time — ideally in Europe or remote.</span>
+        <span class="fr">Je me situe à l'intersection de l'analytics, du machine learning et du développement d'applications IA, et je recherche un poste en data science, machine learning ou ingénierie IA appliquée — stage ou temps plein — idéalement en Europe ou en remote.</span>
+      </p>
+    </div>
+    <div class="stat-list">
+      <div class="stat"><span class="num">2+</span><span class="label"><span class="en">Years of experience</span><span class="fr">Années d'expérience</span></span></div>
+      <div class="stat"><span class="num">0.96</span><span class="label"><span class="en">Churn model ROC-AUC</span><span class="fr">ROC-AUC du modèle de churn</span></span></div>
+      <div class="stat"><span class="num">40+</span><span class="label"><span class="en">Hours saved / month</span><span class="fr">Heures économisées / mois</span></span></div>
+    </div>
+  </div>
+</section>
+
+<section id="specs">
+  <div class="section-head">
+    <span class="section-num">02</span>
+    <span class="section-title"><span class="en">Specifications</span><span class="fr">Compétences Techniques</span></span>
+    <span class="section-rule"></span>
+  </div>
+  <div class="spec-table reveal">
+    <div class="spec-row">
+      <div class="cat">Analytics &amp; BI</div>
+      <div class="pill-row"><span class="pill">Power BI</span><span class="pill">DAX</span><span class="pill">Tableau</span><span class="pill">GA4</span><span class="pill">BigQuery</span><span class="pill">KPI Reporting</span><span class="pill">Data Visualization</span></div>
+    </div>
+    <div class="spec-row">
+      <div class="cat"><span class="en">Machine Learning &amp; AI</span><span class="fr">Machine Learning &amp; IA</span></div>
+      <div class="pill-row"><span class="pill">XGBoost</span><span class="pill">SHAP</span><span class="pill">SMOTE</span><span class="pill">Feature Engineering</span><span class="pill">RAG</span><span class="pill">Vector Search</span><span class="pill">NLP</span><span class="pill">Prompt Engineering</span></div>
+    </div>
+    <div class="spec-row">
+      <div class="cat"><span class="en">Development</span><span class="fr">Développement</span></div>
+      <div class="pill-row"><span class="pill">Python</span><span class="pill">TypeScript / JavaScript</span><span class="pill">SQL</span><span class="pill">React</span><span class="pill">Next.js 16</span><span class="pill">Node.js</span><span class="pill">REST APIs</span><span class="pill">Auth (Clerk)</span></div>
+    </div>
+    <div class="spec-row">
+      <div class="cat"><span class="en">Data Engineering</span><span class="fr">Data Engineering</span></div>
+      <div class="pill-row"><span class="pill">ETL / ELT</span><span class="pill">dbt</span><span class="pill">Hadoop</span><span class="pill">Hive</span><span class="pill">Data Pipelines</span><span class="pill">PostgreSQL</span><span class="pill">Supabase</span><span class="pill">Data Quality</span></div>
+    </div>
+    <div class="spec-row">
+      <div class="cat"><span class="en">Cloud &amp; Tools</span><span class="fr">Cloud &amp; Outils</span></div>
+      <div class="pill-row"><span class="pill">AWS</span><span class="pill">Docker</span><span class="pill">Git</span><span class="pill">Linux</span><span class="pill">CI/CD</span></div>
+    </div>
+  </div>
+</section>
+
+<section id="log">
+  <div class="section-head">
+    <span class="section-num">03</span>
+    <span class="section-title"><span class="en">Revision History</span><span class="fr">Historique des Versions</span></span>
+    <span class="section-rule"></span>
+  </div>
+  <div class="log reveal">
+    <div class="log-entry">
+      <div class="tag-row"><span class="ver-badge">v4.0.0</span><span class="date"><span class="en">Sept 2025 — Present</span><span class="fr">Sept 2025 — Présent</span></span></div>
+      <h3><span class="en">Started Master's in Computer Science — AI &amp; Data Science</span><span class="fr">Début du Master en Informatique — IA &amp; Data Science</span></h3>
+      <div class="org">CESI École d'Ingénieurs, Lyon, France</div>
+      <ul>
+        <li><span class="en">Deepening expertise in machine learning, AI systems, and full-stack engineering; building Lumen, a production-grade AI coding assistant, alongside coursework</span>
+        <span class="fr">Approfondissement de l'expertise en machine learning, systèmes IA et ingénierie full-stack ; développement de Lumen, un assistant de codage IA de niveau production, en parallèle des cours</span></li>
+      </ul>
+    </div>
+    <div class="log-entry">
+      <div class="tag-row"><span class="ver-badge">v3.0.0</span><span class="date">Nov 2024 — Sept 2025</span></div>
+      <h3>Data Analyst</h3>
+      <div class="org">Sanlam Allianz Kenya — Innovation &amp; Growth</div>
+      <ul>
+        <li><span class="en">Designed and automated Python data pipelines ingesting multi-source feeds, saving 40+ hours of manual processing per month</span>
+        <span class="fr">Conception et automatisation de pipelines de données Python ingérant des flux multi-sources, économisant plus de 40 heures de traitement manuel par mois</span></li>
+        <li><span class="en">Built a predictive XGBoost churn model (ROC-AUC 0.96) with SMOTE rebalancing and SHAP interpretability, aimed at improving customer retention</span>
+        <span class="fr">Développement d'un modèle prédictif de churn XGBoost (ROC-AUC 0,96) avec rééquilibrage SMOTE et interprétabilité SHAP, visant à améliorer la rétention client</span></li>
+        <li><span class="en">Integrated GA4 and GTM APIs (25+ custom events) with automated BigQuery exports, contributing to an 18% increase in recovered leads</span>
+        <span class="fr">Intégration d'API GA4/GTM (25+ événements personnalisés) avec exports automatisés vers BigQuery, contribuant à une hausse de 18 % des leads récupérés</span></li>
+        <li><span class="en">Led a suite of Power BI dashboards with advanced DAX measures, cutting executive reporting time by 30%</span>
+        <span class="fr">Pilotage d'une suite de tableaux de bord Power BI avec mesures DAX avancées, réduisant le temps de reporting exécutif de 30 %</span></li>
+      </ul>
+    </div>
+    <div class="log-entry">
+      <div class="tag-row"><span class="ver-badge">v2.0.0</span><span class="date">Jan 2023 — Aug 2024</span></div>
+      <h3><span class="en">Junior Data Scientist</span><span class="fr">Junior Data Scientist</span></h3>
+      <div class="org">GW Dynamics</div>
+      <ul>
+        <li><span class="en">Built data ingestion pipelines (APIs, databases, flat files), reducing processing latency by 45%</span>
+        <span class="fr">Conception de pipelines d'ingestion de données (API, bases de données, fichiers plats), réduisant la latence de traitement de 45 %</span></li>
+        <li><span class="en">Designed predictive models and interactive dashboards (Power BI, Tableau), improving client operational efficiency by 30%</span>
+        <span class="fr">Conception de modèles prédictifs et de tableaux de bord interactifs (Power BI, Tableau), améliorant l'efficacité opérationnelle client de 30 %</span></li>
+      </ul>
+    </div>
+    <div class="log-entry">
+      <div class="tag-row"><span class="ver-badge">v1.0.0</span><span class="date">Apr 2020 — Dec 2023</span></div>
+      <h3><span class="en">Bachelor of Business and Information Technology</span><span class="fr">Licence en Business &amp; Informatique</span></h3>
+      <div class="org">Strathmore University, Nairobi, Kenya</div>
+      <ul>
+        <li><span class="en">Major in Networking. Thesis: Parking Space Prediction Using Machine Learning</span>
+        <span class="fr">Spécialisation Réseaux. Mémoire : Prédiction de places de parking par Machine Learning</span></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section id="projects">
+  <div class="section-head">
+    <span class="section-num">04</span>
+    <span class="section-title"><span class="en">Projects</span><span class="fr">Projets</span></span>
+    <span class="section-rule"></span>
+  </div>
+  <div class="project-grid reveal">
+    <div class="project-card">
+      <div class="idx">PRJ / 01</div>
+      <h3>Lumen — AI Coding Assistant</h3>
+      <p><span class="en">A full-stack AI coding assistant with real-time streaming, RAG-powered codebase awareness, and semantic vector search. Ships with production-grade auth, token limiting, and a code review system.</span>
+      <span class="fr">Un assistant de codage IA full-stack avec streaming en temps réel, connaissance du code via RAG et recherche vectorielle sémantique. Livré avec authentification de niveau production, limitation de tokens et système de revue de code.</span></p>
+      <div class="pill-row"><span class="pill">Next.js 16</span><span class="pill">TypeScript</span><span class="pill">RAG</span><span class="pill">Supabase</span></div>
+      <div class="project-links"><a href="https://github.com/nickmabz" target="_blank"><span class="en">View on GitHub →</span><span class="fr">Voir sur GitHub →</span></a></div>
+    </div>
+    <div class="project-card">
+      <div class="idx">PRJ / 02</div>
+      <h3><span class="en">Customer Churn Prediction</span><span class="fr">Prédiction du Churn Client</span></h3>
+      <p><span class="en">Compared three supervised ML models on 30K insurance records. XGBoost won on F1; SHAP TreeExplainer surfaced age, tenure, and satisfaction as the primary churn drivers, in a full production pipeline with data-leakage removal.</span>
+      <span class="fr">Comparaison de trois modèles de Machine Learning supervisés sur 30 000 dossiers d'assurance. XGBoost a obtenu le meilleur F1 ; SHAP TreeExplainer a mis en évidence l'âge, l'ancienneté et la satisfaction comme facteurs principaux, dans un pipeline de production complet avec suppression des fuites de données.</span></p>
+      <div class="pill-row"><span class="pill">Python</span><span class="pill">XGBoost</span><span class="pill">SHAP</span></div>
+      <div class="project-links"><a href="https://github.com/nickmabz" target="_blank"><span class="en">View on GitHub →</span><span class="fr">Voir sur GitHub →</span></a></div>
+    </div>
+    <div class="project-card">
+      <div class="idx">PRJ / 03</div>
+      <h3><span class="en">Big Data Pipeline</span><span class="fr">Pipeline Big Data</span></h3>
+      <p><span class="en">Built an end-to-end ETL pipeline ingesting multi-source data (CSV, PostgreSQL, Excel, TXT) via Hadoop into a Hive warehouse, connected to Power BI for analytical dashboards and heatmaps.</span>
+      <span class="fr">Développement d'un pipeline ETL de bout en bout ingérant des données multi-sources (CSV, PostgreSQL, Excel, TXT) via Hadoop dans un entrepôt Hive, connecté à Power BI pour des tableaux de bord analytiques et des heatmaps.</span></p>
+      <div class="pill-row"><span class="pill">Hadoop</span><span class="pill">Hive</span><span class="pill">Power BI</span></div>
+      <div class="project-links"><a href="https://github.com/nickmabz" target="_blank"><span class="en">View on GitHub →</span><span class="fr">Voir sur GitHub →</span></a></div>
+    </div>
+    <div class="project-card">
+      <div class="idx">PRJ / 04</div>
+      <h3><span class="en">GA4 &amp; GTM Marketing Analytics</span><span class="fr">Analytics Marketing GA4 &amp; GTM</span></h3>
+      <p><span class="en">Instrumented 25+ custom events across GA4 and Google Tag Manager, with automated exports to BigQuery — improving attribution and contributing to an 18% increase in recovered marketing leads.</span>
+      <span class="fr">Mise en place de plus de 25 événements personnalisés sur GA4 et Google Tag Manager, avec exports automatisés vers BigQuery — améliorant l'attribution et contribuant à une hausse de 18 % des leads marketing récupérés.</span></p>
+      <div class="pill-row"><span class="pill">GA4</span><span class="pill">Google Tag Manager</span><span class="pill">BigQuery</span></div>
+      <div class="project-links"><a href="https://github.com/nickmabz" target="_blank"><span class="en">View on GitHub →</span><span class="fr">Voir sur GitHub →</span></a></div>
+    </div>
+  </div>
+</section>
+
+<section id="education">
+  <div class="section-head">
+    <span class="section-num">05</span>
+    <span class="section-title"><span class="en">Education</span><span class="fr">Formation</span></span>
+    <span class="section-rule"></span>
+  </div>
+  <div class="reveal">
+    <div class="edu-row">
+      <div>
+        <h3><span class="en">Master's in Computer Science — AI &amp; Data Science</span><span class="fr">Master en Informatique — IA &amp; Data Science</span></h3>
+        <div class="school">CESI École d'Ingénieurs, Lyon, France</div>
+      </div>
+      <div class="date"><span class="en">Sept 2025 — Present</span><span class="fr">Sept 2025 — Présent</span></div>
+    </div>
+    <div class="edu-row">
+      <div>
+        <h3><span class="en">Bachelor of Business and Information Technology</span><span class="fr">Licence en Business &amp; Informatique</span></h3>
+        <div class="school">Strathmore University, Nairobi, Kenya</div>
+      </div>
+      <div class="date">Apr 2020 — Dec 2023</div>
+    </div>
+    <div class="edu-note">
+      <span class="en">Major in Networking · Thesis: Parking Space Prediction Using Machine Learning</span>
+      <span class="fr">Spécialisation Réseaux · Mémoire : Prédiction de places de parking par Machine Learning</span>
+    </div>
+  </div>
+</section>
+
+<section id="contact">
+  <div class="section-head">
+    <span class="section-num">06</span>
+    <span class="section-title"><span class="en">Interfaces</span><span class="fr">Contact</span></span>
+    <span class="section-rule"></span>
+  </div>
+  <div class="pin-table reveal">
+    <div class="pin-row">
+      <span class="pin-num">01</span>
+      <span class="pin-label">Email</span>
+      <a href="mailto:nickmabeya5@gmail.com">nickmabeya5@gmail.com</a>
+    </div>
+    <div class="pin-row">
+      <span class="pin-num">02</span>
+      <span class="pin-label">GitHub</span>
+      <a href="https://github.com/nickmabz" target="_blank">github.com/nickmabz</a>
+    </div>
+    <div class="pin-row">
+      <span class="pin-num">03</span>
+      <span class="pin-label">LinkedIn</span>
+      <a href="https://linkedin.com/in/nicolas-mabeya" target="_blank">linkedin.com/in/nicolas-mabeya</a>
+    </div>
+    <div class="pin-row">
+      <span class="pin-num">04</span>
+      <span class="pin-label"><span class="en">Location</span><span class="fr">Localisation</span></span>
+      <span class="val">Lyon, France</span>
+    </div>
+    <div class="pin-row">
+      <span class="pin-num">05</span>
+      <span class="pin-label"><span class="en">Languages</span><span class="fr">Langues</span></span>
+      <span class="val"><span class="en">English · French · Japanese</span><span class="fr">Anglais · Français · Japonais</span></span>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <span>© 2026 Nicolas Mabeya — <span class="en">Compiled 2026.08.06</span><span class="fr">Généré le 06.08.2026</span></span>
+  <span><span class="en">Data &amp; AI Enthusiast</span><span class="fr">Passionné Data &amp; IA</span> · Lyon, France</span>
+</footer>
+
+<script>
+  function toggleTheme(){
+    var current = document.documentElement.getAttribute('data-theme') || 'light';
+    var next = current === 'dark' ? 'light' : 'dark';
+    document.documentElement.setAttribute('data-theme', next);
+    try { localStorage.setItem('theme', next); } catch(e){}
+  }
+
+  function setLang(lang){
+    document.documentElement.setAttribute('data-lang', lang);
+    document.querySelectorAll('.lang-btn').forEach(function(b){
+      b.classList.toggle('active', b.dataset.langBtn === lang);
+    });
+    var resumeBtn = document.getElementById('resume-btn');
+    if(resumeBtn){ resumeBtn.href = lang === 'fr' ? 'resume_fr.pdf' : 'resume_en.pdf'; }
+  }
+
+  var revealEls = document.querySelectorAll('.reveal');
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(entry){
+      if(entry.isIntersecting){ entry.target.classList.add('is-visible'); io.unobserve(entry.target); }
+    });
+  }, { threshold: 0.15 });
+  revealEls.forEach(function(el){ io.observe(el); });
+</script>
+
+</body>
+</html>
